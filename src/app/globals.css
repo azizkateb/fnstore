@@ -3,10 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+	html,
+	body {
+		max-width: 100%;
+		overflow-x: hidden;
+	}
+
 	body {
 		@apply bg-white text-ink font-ui antialiased;
 		font-family: var(--font-ui), system-ui, sans-serif;
 		line-height: 1.7;
+		overflow-x: hidden;
 	}
 
 	::selection {

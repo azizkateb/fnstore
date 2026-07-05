@@ -46,7 +46,7 @@ const arrowTransition: Transition = {
 
 export default function Gallery() {
 	return (
-		<section id="gallery" className="w-full px-20 pb-32">
+		<section id="gallery" className="w-full px-4 pb-24 md:px-20 md:pb-32">
 			<SectionTitle
 				eyebrow="المعرض"
 				animatedText="شاهديه من كل زاوية"
@@ -56,7 +56,7 @@ export default function Gallery() {
 				initial="hidden"
 				whileInView="show"
 				viewport={viewportOnce}
-				className="grid grid-cols-1 gap-6 md:grid-cols-3"
+				className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6"
 			>
 				{cards.map((card) => (
 					<motion.figure
