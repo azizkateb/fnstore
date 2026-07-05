@@ -8,6 +8,7 @@ import {
 	useReducedMotion
 } from "framer-motion"
 import { luxEase } from "@/lib/motion"
+import { areLayoutAnimationsLocked } from "@/lib/layoutInteraction"
 
 type AnimatedSplitTextProps = {
 	text: string
@@ -19,6 +20,8 @@ type AnimatedSplitTextProps = {
 	duration?: number
 	y?: number
 	once?: boolean
+	amount?: number
+	immediate?: boolean
 }
 
 function splitWords(text: string) {
@@ -61,12 +64,14 @@ export default function AnimatedSplitText({
 	stagger = 0.1,
 	duration: animDuration = 1.2,
 	y = 50,
-	once = true
+	once = true,
+	amount = 0.15,
+	immediate = false
 }: AnimatedSplitTextProps) {
 	const Tag = getMotionTag(as)
 	const ref = useRef<HTMLElement>(null)
 	const controls = useAnimationControls()
-	const isInView = useInView(ref, { amount: 0.15, once })
+	const isInView = useInView(ref, { amount, once, margin: "0px 0px -12% 0px" })
 	const shouldReduceMotion = useReducedMotion()
 	const hasPlayedRef = useRef(false)
 
@@ -74,23 +79,18 @@ export default function AnimatedSplitText({
 
 	useEffect(() => {
 		if (shouldReduceMotion) return
-		if (isInView) {
+		if (immediate) {
 			if (once && hasPlayedRef.current) return
 			controls.start("show")
 			hasPlayedRef.current = true
+			return
 		}
-	}, [isInView, controls, once, shouldReduceMotion])
-
-	useEffect(() => {
-		if (shouldReduceMotion) return
-		const timer = window.setTimeout(() => {
-			if (!hasPlayedRef.current) {
-				controls.start("show")
-				hasPlayedRef.current = true
-			}
-		}, 1200)
-		return () => window.clearTimeout(timer)
-	}, [controls, shouldReduceMotion])
+		if (!isInView) return
+		if (areLayoutAnimationsLocked()) return
+		if (once && hasPlayedRef.current) return
+		controls.start("show")
+		hasPlayedRef.current = true
+	}, [immediate, isInView, controls, once, shouldReduceMotion])
 
 	if (shouldReduceMotion) {
 		return <Tag className={className}>{text}</Tag>

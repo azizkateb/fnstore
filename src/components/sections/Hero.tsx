@@ -50,6 +50,7 @@ export default function Hero() {
 				<AnimatedSplitText
 					as="p"
 					text="تشكيلة السهرات الجديدة"
+					immediate
 					delay={0.3}
 					stagger={0.08}
 					duration={0.75}
@@ -60,6 +61,7 @@ export default function Hero() {
 				<AnimatedSplitText
 					as="h1"
 					text="أناقة تليق بمناسبتك"
+					immediate
 					delay={0.5}
 					stagger={0.07}
 					duration={0.85}
