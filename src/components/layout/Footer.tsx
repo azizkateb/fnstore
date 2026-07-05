@@ -49,7 +49,8 @@ export default function Footer() {
 							text="إطلالتك المميزة تبدأ من هنا"
 							delay={0.15}
 							stagger={0.09}
-							className="font-display mt-4 text-[clamp(36px,4.8vw,72px)] font-bold leading-[1.04] text-ivory"
+							className="font-display mt-4 text-[clamp(36px,4.8vw,72px)] font-bold leading-[1.04]"
+							wordClassName="text-white"
 						/>
 						<p className="mt-5 max-w-[46rem] text-base leading-8 text-white/62 md:text-lg">
 							{SITE.productName} — خصم <span className="symbol-safe" dir="ltr">15%</span> لفترة محدودة مع تجربة شراء راقية، صفحة سريعة،
