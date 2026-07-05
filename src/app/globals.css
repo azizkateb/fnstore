@@ -27,6 +27,17 @@
 		line-height: 1.15;
 	}
 
+	.mobile-title-lift {
+		text-shadow:
+			0 2px 8px rgba(0,0,0,0.35),
+			0 8px 24px rgba(0,0,0,0.28);
+	}
+	@media (min-width: 768px) {
+		.mobile-title-lift {
+			text-shadow: none;
+		}
+	}
+
 	.font-symbol {
 		font-family: Arial, Tahoma, sans-serif !important;
 	}

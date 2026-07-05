@@ -30,10 +30,11 @@ export default function Hero() {
 				</div>
 			</motion.div>
 
-			<div className="absolute inset-0 z-10 bg-black/35" />
+			<div className="absolute inset-0 z-10 bg-black/30" />
+			<div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_70%_62%,rgba(0,0,0,0.58)_0%,rgba(0,0,0,0.36)_34%,rgba(0,0,0,0.12)_62%,transparent_100%)] md:hidden" />
 
-			{/* Mobile: readable glass panel. Desktop: clean editorial text block on the right side (RTL = start). */}
-			<div className="absolute inset-x-5 bottom-12 z-20 max-w-[430px] rounded-3xl bg-black/20 p-5 text-right backdrop-blur-[2px] ring-1 ring-white/10 md:bottom-auto md:inset-x-auto md:start-[7vw] md:top-1/2 md:w-[min(50vw,860px)] md:max-w-none md:-translate-y-1/2 md:bg-transparent md:p-0 md:backdrop-blur-0 md:ring-0">
+			{/* Mobile: strong glass card. Desktop: clean editorial text block on the right side (RTL = start). */}
+			<div className="absolute inset-x-5 bottom-10 z-30 max-w-[430px] rounded-[28px] bg-black/38 p-5 text-right shadow-[0_24px_60px_rgba(0,0,0,0.28)] backdrop-blur-[6px] ring-1 ring-white/15 md:bottom-auto md:inset-x-auto md:start-[7vw] md:top-1/2 md:w-[min(50vw,860px)] md:max-w-none md:-translate-y-1/2 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-0 md:ring-0">
 				<AnimatedSplitText
 					as="p"
 					text="تشكيلة السهرات الجديدة"
@@ -41,7 +42,7 @@ export default function Hero() {
 					stagger={0.09}
 					duration={0.75}
 					y={24}
-					className="mb-6 inline-block rounded-sm bg-white/90 px-3 py-1.5 text-[14px] font-semibold tracking-[0.18em] text-black shadow-[0_2px_12px_rgba(0,0,0,0.22)] md:mb-12 md:px-4 md:py-2 md:text-[20px] md:shadow-[0_2px_12px_rgba(0,0,0,0.16)]"
+					className="mb-5 inline-block rounded-full bg-white/95 px-3.5 py-1.5 text-[12px] font-semibold tracking-[0.14em] text-ink shadow-[0_4px_14px_rgba(0,0,0,0.16)] md:mb-12 md:rounded-sm md:px-4 md:py-2 md:text-[16px] md:tracking-[0.18em] md:shadow-[0_2px_12px_rgba(0,0,0,0.16)]"
 				/>
 
 				<AnimatedSplitText
@@ -51,7 +52,7 @@ export default function Hero() {
 					stagger={0.075}
 					duration={0.85}
 					y={36}
-					className="font-display max-w-[9ch] text-[clamp(42px,13.5vw,68px)] font-medium leading-[1.08] text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)] md:max-w-[9.5ch] md:text-[clamp(94px,8.8vw,160px)] md:font-semibold md:leading-[1.02] md:drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
+					className="font-display mobile-title-lift max-w-[9ch] text-[clamp(34px,11vw,56px)] font-medium leading-[1.16] text-white md:max-w-[9.5ch] md:text-[clamp(72px,7vw,120px)] md:font-semibold md:leading-[1.02]"
 				/>
 
 				<motion.div

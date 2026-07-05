@@ -5,13 +5,9 @@ import {
 	motion,
 	useAnimationControls,
 	useInView,
-	useReducedMotion,
-	type Variants,
-	type Transition,
+	useReducedMotion
 } from "framer-motion"
-import { areLayoutAnimationsLocked } from "@/lib/layoutInteraction"
 import { luxEase } from "@/lib/motion"
-import type { CSSProperties } from "react"
 
 type AnimatedSplitTextProps = {
 	text: string
@@ -23,7 +19,6 @@ type AnimatedSplitTextProps = {
 	duration?: number
 	y?: number
 	once?: boolean
-	amount?: number
 }
 
 function splitWords(text: string) {
@@ -31,13 +26,12 @@ function splitWords(text: string) {
 		try {
 			const segmenter = new Intl.Segmenter("ar", { granularity: "word" })
 			return Array.from(segmenter.segment(text))
-				.map((segment) => segment.segment)
-				.filter((word) => word.trim().length > 0)
+				.map((s) => s.segment)
+				.filter((s) => s.trim().length > 0)
 		} catch {
 			return text.trim().split(/\s+/)
 		}
 	}
-
 	return text.trim().split(/\s+/)
 }
 
@@ -58,87 +52,68 @@ function getMotionTag(as: NonNullable<AnimatedSplitTextProps["as"]>) {
 	}
 }
 
-const wordStyle: CSSProperties = {
-	transformPerspective: 800,
-	transformOrigin: "bottom center",
-}
-
 export default function AnimatedSplitText({
 	text,
 	as = "h2",
 	className,
 	wordClassName,
 	delay = 0,
-	stagger = 0.08,
-	duration = 0.9,
+	stagger = 0.1,
+	duration: animDuration = 1.2,
 	y = 50,
-	once = true,
-	amount = 0.22,
+	once = true
 }: AnimatedSplitTextProps) {
 	const Tag = getMotionTag(as)
-	const ref = useRef<HTMLElement | null>(null)
+	const ref = useRef<HTMLElement>(null)
 	const controls = useAnimationControls()
-	const isInView = useInView(ref, { amount, once })
+	const isInView = useInView(ref, { amount: 0.15, once })
 	const shouldReduceMotion = useReducedMotion()
 	const hasPlayedRef = useRef(false)
-	const pendingRevealRef = useRef(false)
 
 	const words = useMemo(() => splitWords(text), [text])
 
 	useEffect(() => {
 		if (shouldReduceMotion) return
-		if (!isInView) return
-
-		if (areLayoutAnimationsLocked()) {
-			pendingRevealRef.current = true
-			const timer = window.setTimeout(() => {
-				if (pendingRevealRef.current && (!once || !hasPlayedRef.current)) {
-					void controls.start("show")
-					hasPlayedRef.current = true
-				}
-				pendingRevealRef.current = false
-			}, 760)
-
-			return () => window.clearTimeout(timer)
+		if (isInView) {
+			if (once && hasPlayedRef.current) return
+			controls.start("show")
+			hasPlayedRef.current = true
 		}
-
-		if (once && hasPlayedRef.current) return
-
-		void controls.start("show")
-		hasPlayedRef.current = true
 	}, [isInView, controls, once, shouldReduceMotion])
+
+	useEffect(() => {
+		if (shouldReduceMotion) return
+		const timer = window.setTimeout(() => {
+			if (!hasPlayedRef.current) {
+				controls.start("show")
+				hasPlayedRef.current = true
+			}
+		}, 1200)
+		return () => window.clearTimeout(timer)
+	}, [controls, shouldReduceMotion])
 
 	if (shouldReduceMotion) {
 		return <Tag className={className}>{text}</Tag>
 	}
 
-	const container: Variants = {
+	const container = {
 		hidden: {},
 		show: {
 			transition: {
 				delayChildren: delay,
-				staggerChildren: stagger,
-			},
-		},
+				staggerChildren: stagger
+			}
+		}
 	}
 
-	const wordTransition: Transition = {
-		duration,
-		ease: luxEase,
-	}
-
-	const wordVariant: Variants = {
-		hidden: {
-			y,
-			opacity: 0,
-			rotateX: 8,
-		},
+	const wordVariant = {
+		hidden: { y, opacity: 0, rotateX: 8 },
 		show: {
 			y: 0,
 			opacity: 1,
 			rotateX: 0,
-			transition: wordTransition,
-		},
+			transition: { duration: animDuration, ease: luxEase }
+		}
 	}
 
 	return (
@@ -150,20 +125,18 @@ export default function AnimatedSplitText({
 			animate={controls}
 		>
 			<span className="sr-only">{text}</span>
-			<span aria-hidden="true">
+			<span aria-hidden>
 				{words.map((word, index) => (
 					<span
 						key={`${word}-${index}`}
-						className="inline-block overflow-hidden align-baseline py-[0.14em] -my-[0.14em]"
+						className="inline-block overflow-visible align-baseline py-[0.18em] -my-[0.18em] me-2 last:me-0"
 					>
 						<motion.span
 							variants={wordVariant}
 							className={`inline-block will-change-transform${wordClassName ? ` ${wordClassName}` : ""}`}
-							style={wordStyle}
 						>
 							{word}
 						</motion.span>
-						{index < words.length - 1 ? " " : ""}
 					</span>
 				))}
 			</span>
