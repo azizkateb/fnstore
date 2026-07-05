@@ -15,8 +15,8 @@ const config: Config = {
 				chip: "#111111"
 			},
 			fontFamily: {
-				display: ["var(--font-display)", "serif"],
-				ui: ["var(--font-ui)", "system-ui", "sans-serif"],
+				display: ["var(--font-tajawal)", "system-ui", "sans-serif"],
+				tajawal: ["var(--font-tajawal)", "system-ui", "sans-serif"],
 				symbol: ["Arial", "Tahoma", "sans-serif"]
 			},
 			letterSpacing: {

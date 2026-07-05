@@ -15,8 +15,8 @@
 	}
 
 	body {
-		@apply bg-white text-ink font-ui antialiased;
-		font-family: var(--font-ui), system-ui, sans-serif;
+		@apply bg-white text-ink font-tajawal antialiased;
+		font-family: var(--font-tajawal), system-ui, sans-serif;
 		line-height: 1.7;
 		overflow-x: hidden;
 	}
@@ -29,7 +29,7 @@
 
 @layer utilities {
 	.font-display,
-	.font-ui,
+	.font-tajawal,
 	body {
 		-webkit-font-smoothing: antialiased;
 		text-rendering: geometricPrecision;

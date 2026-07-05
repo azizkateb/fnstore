@@ -58,7 +58,7 @@ export default function Hero() {
 					className="mb-5 inline-block rounded-full bg-white/95 px-3.5 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-ink shadow-[0_4px_14px_rgba(0,0,0,0.16)] md:mb-12 md:rounded-sm md:px-4 md:py-2 md:text-[18px] md:tracking-[0.18em]"
 				/>
 
-				<h1 className="font-ui mobile-title-lift max-w-[10ch] text-[clamp(34px,10vw,48px)] font-bold leading-[1.25] text-white md:hidden">
+				<h1 className="font-tajawal mobile-title-lift max-w-[10ch] text-[clamp(34px,10vw,48px)] font-bold leading-[1.25] text-white md:hidden">
 					أناقة تليق بمناسبتك
 				</h1>
 				<AnimatedSplitText

@@ -1,20 +1,13 @@
 import type { Metadata } from "next"
 import Script from "next/script"
-import localFont from "next/font/local"
-import { IBM_Plex_Sans_Arabic } from "next/font/google"
+import { Tajawal } from "next/font/google"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
-const display = localFont({
-	src: "../../lang/aligarh-arabic-free-personal-use.medium.otf",
-	variable: "--font-display",
-	display: "swap"
-})
-
-const ui = IBM_Plex_Sans_Arabic({
+const tajawal = Tajawal({
 	subsets: ["arabic"],
 	weight: ["400", "500", "700"],
-	variable: "--font-ui",
+	variable: "--font-tajawal",
 	display: "swap"
 })
 
@@ -26,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: { children: React.ReactNode }) {
 	return (
-		<html lang="ar" dir="rtl" className={display.variable + " " + ui.variable}>
+		<html lang="ar" dir="rtl" className={tajawal.variable}>
 			<body>
 				{props.children}
 				{/* TikTok Pixel — fires PageView; button clicks fire InitiateCheckout */}
