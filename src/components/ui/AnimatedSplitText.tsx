@@ -129,7 +129,7 @@ export default function AnimatedSplitText({
 				{words.map((word, index) => (
 					<span
 						key={`${word}-${index}`}
-						className="inline-block overflow-visible align-baseline py-[0.18em] -my-[0.18em] me-2 last:me-0"
+						className="inline-block overflow-visible md:overflow-hidden align-baseline py-[0.2em] -my-[0.2em] me-2 last:me-0"
 					>
 						<motion.span
 							variants={wordVariant}

@@ -58,6 +58,9 @@ export default function Hero() {
 					className="mb-5 inline-block rounded-full bg-white/95 px-3.5 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-ink shadow-[0_4px_14px_rgba(0,0,0,0.16)] md:mb-12 md:rounded-sm md:px-4 md:py-2 md:text-[18px] md:tracking-[0.18em]"
 				/>
 
+				<h1 className="font-ui mobile-title-lift max-w-[10ch] text-[clamp(34px,10vw,48px)] font-bold leading-[1.25] text-white md:hidden">
+					أناقة تليق بمناسبتك
+				</h1>
 				<AnimatedSplitText
 					as="h1"
 					text="أناقة تليق بمناسبتك"
@@ -66,7 +69,7 @@ export default function Hero() {
 					stagger={0.07}
 					duration={0.85}
 					y={32}
-					className="font-display mobile-title-lift max-w-[9ch] text-[clamp(36px,10.8vw,54px)] font-medium leading-[1.18] text-white md:max-w-[9.5ch] md:text-[clamp(84px,7.6vw,138px)] md:font-semibold md:leading-[1.04]"
+					className="hidden md:block md:font-display md:max-w-[9.5ch] md:text-[clamp(84px,7.6vw,138px)] md:font-semibold md:leading-[1.04] md:text-white"
 				/>
 
 				<motion.div
