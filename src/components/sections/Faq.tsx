@@ -1,12 +1,11 @@
 "use client"
 
-// FAQ — editorial accordions on hairline rules
 import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, type Variants, type Transition } from "framer-motion"
 import AnimatedSplitText from "@/components/ui/AnimatedSplitText"
 import Reveal from "@/components/ui/Reveal"
-import { luxEase } from "@/lib/motion"
 import { lockLayoutAnimations, lockNavbarScroll } from "@/lib/layoutInteraction"
+import { luxEase } from "@/lib/motion"
 
 const faqs = [
 	{
@@ -23,81 +22,108 @@ const faqs = [
 	}
 ]
 
-const accordionEase = [0.4, 0, 0.2, 1] as const
+const accordionEase = [0.22, 1, 0.36, 1] as const
 
-function FaqItem({
-	faq,
-	isOpen,
-	onToggle
-}: {
-	faq: { q: string; a: string }
+const plusVariants: Variants = {
+	closed: { rotate: 0 },
+	open: { rotate: 45 }
+}
+
+const plusTransition: Transition = {
+	duration: 0.35,
+	ease: accordionEase
+}
+
+const panelTransition: Transition = {
+	duration: 0.5,
+	ease: accordionEase
+}
+
+const opacityTransition: Transition = {
+	duration: 0.28,
+	ease: luxEase
+}
+
+type FaqItemProps = {
+	faq: (typeof faqs)[number]
 	isOpen: boolean
 	onToggle: () => void
-}) {
-	const contentRef = useRef<HTMLDivElement>(null!)
+}
+
+function FaqItem({ faq, isOpen, onToggle }: FaqItemProps) {
+	const contentRef = useRef<HTMLDivElement>(null)
 	const [contentHeight, setContentHeight] = useState(0)
 
 	useEffect(() => {
-		if (contentRef.current) {
-			setContentHeight(contentRef.current.scrollHeight)
-		}
-	}, [])
+		if (!contentRef.current) return
+		setContentHeight(contentRef.current.scrollHeight)
+	}, [faq.a])
 
 	useEffect(() => {
 		if (!contentRef.current) return
-		if (isOpen) {
-			setContentHeight(contentRef.current.scrollHeight)
-		}
+		if (isOpen) setContentHeight(contentRef.current.scrollHeight)
 	}, [isOpen])
+
+	const panelVariants: Variants = {
+		closed: {
+			height: 0,
+			opacity: 0
+		},
+		open: {
+			height: contentHeight,
+			opacity: 1
+		}
+	}
+
+	const panelState = isOpen ? "open" : "closed"
 
 	return (
 		<div className="border-b border-line">
 			<button
 				type="button"
 				onClick={onToggle}
-				className="flex w-full cursor-pointer items-center justify-between py-6 text-start"
+				className="flex w-full cursor-pointer items-center justify-between gap-6 py-6 text-start"
 				aria-expanded={isOpen}
 			>
-				<AnimatedSplitText
-					as="span"
-					text={faq.q}
-					y={30}
-					duration={0.8}
-					stagger={0.08}
-					className="text-3xl font-medium md:text-5xl"
-					once={false}
-				/>
+				<span className="text-3xl font-medium leading-tight md:text-5xl">
+					{faq.q}
+				</span>
+
 				<motion.span
-					animate={{ rotate: isOpen ? 45 : 0 }}
-					transition={{ duration: 0.4, ease: luxEase }}
-					className="inline-flex items-center justify-center text-gold shrink-0"
+					variants={plusVariants}
+					animate={panelState}
+					transition={plusTransition}
+					className="inline-flex shrink-0 items-center justify-center text-gold"
 					aria-hidden
 				>
-					<svg viewBox="0 0 24 24" className="h-8 w-8 md:h-12 md:w-12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+					<svg
+						viewBox="0 0 24 24"
+						className="h-8 w-8 md:h-12 md:w-12"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeLinecap="round"
+					>
 						<path d="M12 5v14" />
 						<path d="M5 12h14" />
 					</svg>
 				</motion.span>
 			</button>
+
 			<motion.div
 				initial={false}
-				animate={{
-					height: isOpen ? contentHeight : 0,
-					opacity: isOpen ? 1 : 0
-				}}
-				transition={{
-					height: { duration: 0.5, ease: accordionEase },
-					opacity: {
-						duration: isOpen ? 0.35 : 0.15,
-						ease: luxEase,
-						delay: isOpen ? 0.12 : 0
-					}
-				}}
+				variants={panelVariants}
+				animate={panelState}
+				transition={panelTransition}
 				className="overflow-hidden"
 			>
-				<div ref={contentRef}>
-					<p className="pb-8 text-xl leading-relaxed text-muted md:text-3xl">{faq.a}</p>
-				</div>
+				<motion.div transition={opacityTransition}>
+					<div ref={contentRef}>
+						<p className="pb-8 text-xl leading-relaxed text-muted md:text-3xl">
+							{faq.a}
+						</p>
+					</div>
+				</motion.div>
 			</motion.div>
 		</div>
 	)
@@ -105,6 +131,12 @@ function FaqItem({
 
 export default function Faq() {
 	const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+	function handleToggle(index: number) {
+		lockNavbarScroll(650)
+		lockLayoutAnimations(800)
+		setOpenIndex((current) => (current === index ? null : index))
+	}
 
 	return (
 		<section
@@ -124,22 +156,20 @@ export default function Faq() {
 					as="h2"
 					text="كل ما تحتاجين معرفته"
 					delay={0.25}
-					duration={1.4}
+					duration={1.2}
+					stagger={0.09}
 					className="font-display mt-6 text-[clamp(56px,9vw,140px)] font-bold leading-[0.95]"
 				/>
 			</div>
+
 			<Reveal className="mx-auto w-full max-w-5xl">
 				<div className="border-t border-line">
-					{faqs.map((f, i) => (
+					{faqs.map((faq, index) => (
 						<FaqItem
-							key={f.q}
-							faq={f}
-							isOpen={openIndex === i}
-							onToggle={() => {
-								lockNavbarScroll(600)
-								lockLayoutAnimations(700)
-								setOpenIndex(openIndex === i ? null : i)
-							}}
+							key={faq.q}
+							faq={faq}
+							isOpen={openIndex === index}
+							onToggle={() => handleToggle(index)}
 						/>
 					))}
 				</div>

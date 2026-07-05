@@ -16,6 +16,17 @@
 }
 
 @layer utilities {
+	.font-display,
+	.font-ui,
+	body {
+		-webkit-font-smoothing: antialiased;
+		text-rendering: geometricPrecision;
+	}
+
+	.arabic-safe-line {
+		line-height: 1.15;
+	}
+
 	.font-symbol {
 		font-family: Arial, Tahoma, sans-serif !important;
 	}

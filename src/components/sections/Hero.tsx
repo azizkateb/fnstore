@@ -17,7 +17,7 @@ export default function Hero() {
 				variants={heroMedia}
 				initial="hidden"
 				animate="show"
-				className="absolute inset-0"
+				className="absolute inset-0 z-0"
 			>
 				<div className="h-full w-full animate-kenburns motion-reduce:animate-none">
 					<Image
@@ -30,61 +30,61 @@ export default function Hero() {
 				</div>
 			</motion.div>
 
-			<div className="absolute inset-0 bg-black/30" />
+			<div className="absolute inset-0 z-10 bg-black/35" />
 
-			{/* Mobile layout: text near bottom. Desktop: strong block on the RIGHT side (RTL = start). */}
-			<div className="absolute inset-x-6 bottom-14 max-w-[420px] md:bottom-auto md:inset-x-auto md:start-[7vw] md:top-1/2 md:w-[min(50vw,860px)] md:max-w-none md:-translate-y-1/2">
+			{/* Mobile: readable glass panel. Desktop: clean editorial text block on the right side (RTL = start). */}
+			<div className="absolute inset-x-5 bottom-12 z-20 max-w-[430px] rounded-3xl bg-black/20 p-5 text-right backdrop-blur-[2px] ring-1 ring-white/10 md:bottom-auto md:inset-x-auto md:start-[7vw] md:top-1/2 md:w-[min(50vw,860px)] md:max-w-none md:-translate-y-1/2 md:bg-transparent md:p-0 md:backdrop-blur-0 md:ring-0">
 				<AnimatedSplitText
 					as="p"
 					text="تشكيلة السهرات الجديدة"
-					delay={0.5}
-					stagger={0.12}
-					duration={0.8}
-					y={30}
-					className="mb-8 inline-block rounded-sm bg-white/90 px-3 py-1.5 text-[17px] font-semibold tracking-[0.22em] text-black shadow-[0_2px_12px_rgba(0,0,0,0.25)] md:mb-16 md:rounded md:bg-white/90 md:px-4 md:py-2 md:text-[22px] md:text-black md:shadow-[0_2px_12px_rgba(0,0,0,0.2)]"
+					delay={0.35}
+					stagger={0.09}
+					duration={0.75}
+					y={24}
+					className="mb-6 inline-block rounded-sm bg-white/90 px-3 py-1.5 text-[14px] font-semibold tracking-[0.18em] text-black shadow-[0_2px_12px_rgba(0,0,0,0.22)] md:mb-12 md:px-4 md:py-2 md:text-[20px] md:shadow-[0_2px_12px_rgba(0,0,0,0.16)]"
 				/>
 
-			<AnimatedSplitText
-				as="h1"
-				text="أناقة تليق بمناسبتك"
-				delay={0.65}
-				stagger={0.09}
-				y={60}
-				className="font-display max-w-[8.5ch] text-[clamp(54px,17vw,86px)] font-semibold leading-[0.95] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)] md:max-w-[9.5ch] md:text-[clamp(94px,8.8vw,160px)] md:leading-[0.98] md:text-white md:drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
-			/>
-
-			<motion.div
-				variants={fadeUp}
-				custom={0.85}
-				initial="hidden"
-				animate="show"
-				className="relative mt-10 md:mt-14"
-			>
-				<div className="flex flex-wrap items-end gap-x-5 gap-y-4">
-					<span className="text-5xl font-bold text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.22)] md:text-7xl md:text-white md:drop-shadow-[0_4px_14px_rgba(0,0,0,0.22)]">
-						<span className="font-symbol">{SITE.priceNow}</span>
-						<span className="text-lg md:text-2xl"> {SITE.currency}</span>
-					</span>
-					<span className="text-2xl text-white/75 line-through drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)] md:text-3xl md:text-white/75 md:drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]">
-						<span className="font-symbol">{SITE.priceOld}</span> {SITE.currency}
-					</span>
-				</div>
-
-				<span className="absolute right-[28rem] top-[70%] -translate-y-1/2 inline-flex rounded-full bg-gradient-to-r from-[#a8894e] via-[#d3b87b] to-[#f0dc9a] px-5 py-3 text-lg font-bold uppercase tracking-[0.24em] text-white shadow-[0_20px_40px_rgba(0,0,0,0.18)] ring-1 ring-white/15 md:right-[23rem] md:top-[65%] md:px-6 md:py-3.5 md:text-xl">
-					{SITE.discountText}{" "}
-					<span className="symbol-safe" dir="ltr">{SITE.discountValue}</span>
-				</span>
-			</motion.div>
+				<AnimatedSplitText
+					as="h1"
+					text="أناقة تليق بمناسبتك"
+					delay={0.55}
+					stagger={0.075}
+					duration={0.85}
+					y={36}
+					className="font-display max-w-[9ch] text-[clamp(42px,13.5vw,68px)] font-medium leading-[1.08] text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)] md:max-w-[9.5ch] md:text-[clamp(94px,8.8vw,160px)] md:font-semibold md:leading-[1.02] md:drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
+				/>
 
 				<motion.div
 					variants={fadeUp}
-					custom={1}
+					custom={0.8}
 					initial="hidden"
 					animate="show"
-					className="mt-8 flex items-center gap-5 md:mt-12 md:gap-6"
+					className="relative mt-7 md:mt-12"
+				>
+					<div className="flex flex-wrap items-end gap-x-4 gap-y-3 md:gap-x-7 md:gap-y-4">
+						<span className="text-4xl font-semibold text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.22)] md:text-7xl">
+							<span className="font-symbol">{SITE.priceNow}</span>
+							<span className="text-base md:text-2xl"> {SITE.currency}</span>
+						</span>
+						<span className="text-lg text-white/75 line-through drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)] md:text-3xl">
+							<span className="font-symbol">{SITE.priceOld}</span> {SITE.currency}
+						</span>
+						<span className="inline-flex rounded-full bg-gradient-to-r from-[#a8894e] via-[#d3b87b] to-[#f0dc9a] px-3.5 py-2 text-xs font-bold tracking-[0.18em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.18)] ring-1 ring-white/15 md:px-5 md:py-3 md:text-lg">
+							{SITE.discountText}{" "}
+							<span className="symbol-safe" dir="ltr">{SITE.discountValue}</span>
+						</span>
+					</div>
+				</motion.div>
+
+				<motion.div
+					variants={fadeUp}
+					custom={0.95}
+					initial="hidden"
+					animate="show"
+					className="mt-7 flex items-center gap-4 md:mt-10 md:gap-6"
 				>
 					<CircleCta href={SITE.sallaProductUrl} />
-					<p className="max-w-[300px] text-lg leading-7 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.2)] md:max-w-[420px] md:text-xl md:leading-8 md:text-ink/85 md:drop-shadow-none">
+					<p className="max-w-[260px] text-sm leading-6 text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.22)] md:max-w-[420px] md:text-xl md:leading-8">
 						{SITE.saveText}{" "}
 						<span className="font-symbol" dir="ltr">{SITE.saveNumber}</span>{" "}
 						{SITE.currency} — دفع آمن{" "}

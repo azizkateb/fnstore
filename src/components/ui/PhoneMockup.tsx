@@ -1,13 +1,23 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, type Transition } from "framer-motion"
+
+const phoneHover = {
+	y: -8,
+	scale: 1.015
+}
+
+const phoneTransition: Transition = {
+	duration: 0.45,
+	ease: [0.22, 1, 0.36, 1]
+}
 
 export default function PhoneMockup({ children }: { children: React.ReactNode }) {
 	return (
 		<motion.div
 			className="relative mx-auto w-[min(88vw,320px)] sm:w-[480px]"
-			whileHover={{ y: -8, scale: 1.008 }}
-			transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+			whileHover={phoneHover}
+			transition={phoneTransition}
 		>
 			{/* Premium shadow layers */}
 			<div className="absolute -inset-x-4 inset-y-6 rounded-[48px] bg-black/40 blur-[28px]" />
