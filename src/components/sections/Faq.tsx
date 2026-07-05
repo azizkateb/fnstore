@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import AnimatedSplitText from "@/components/ui/AnimatedSplitText"
 import Reveal from "@/components/ui/Reveal"
 import { luxEase } from "@/lib/motion"
-import { lockNavbarScroll } from "@/lib/layoutInteraction"
+import { lockLayoutAnimations, lockNavbarScroll } from "@/lib/layoutInteraction"
 
 const faqs = [
 	{
@@ -137,6 +137,7 @@ export default function Faq() {
 							isOpen={openIndex === i}
 							onToggle={() => {
 								lockNavbarScroll(600)
+								lockLayoutAnimations(700)
 								setOpenIndex(openIndex === i ? null : i)
 							}}
 						/>

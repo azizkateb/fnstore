@@ -1,7 +1,14 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { useEffect, useMemo, useRef } from "react"
+import {
+	motion,
+	useAnimationControls,
+	useInView,
+	useReducedMotion
+} from "framer-motion"
 import { luxEase } from "@/lib/motion"
+import { areLayoutAnimationsLocked } from "@/lib/layoutInteraction"
 
 type AnimatedSplitTextProps = {
 	text: string
@@ -29,16 +36,6 @@ function splitWords(text: string) {
 	return text.trim().split(/\s+/)
 }
 
-const wordVariant = (y: number, duration: number) => ({
-	hidden: { y, opacity: 0, rotateX: 8 },
-	show: {
-		y: 0,
-		opacity: 1,
-		rotateX: 0,
-		transition: { duration, ease: luxEase }
-	}
-})
-
 export default function AnimatedSplitText({
 	text,
 	as: Tag = "h2",
@@ -50,36 +47,64 @@ export default function AnimatedSplitText({
 	y: yOffset = 50,
 	once = true
 }: AnimatedSplitTextProps) {
+	const wrapperRef = useRef<HTMLDivElement>(null)
+	const controls = useAnimationControls()
+	const isInView = useInView(wrapperRef, { amount: 0.25, once })
 	const shouldReduceMotion = useReducedMotion()
-	const words = splitWords(text)
-	const MotionTag = motion(Tag)
+	const hasPlayedRef = useRef(false)
+
+	const words = useMemo(() => splitWords(text), [text])
+
+	useEffect(() => {
+		if (shouldReduceMotion) return
+		if (areLayoutAnimationsLocked()) return
+		if (isInView) {
+			if (once && hasPlayedRef.current) return
+			controls.start("show")
+			hasPlayedRef.current = true
+		}
+	}, [isInView, controls, once, shouldReduceMotion])
 
 	if (shouldReduceMotion) {
 		return <Tag className={className}>{text}</Tag>
 	}
 
+	const MotionTag = motion(Tag)
+
+	const container = {
+		hidden: {},
+		show: {
+			transition: {
+				delayChildren: delay,
+				staggerChildren: stagger
+			}
+		}
+	}
+
+	const wordVariant = {
+		hidden: { y: yOffset, opacity: 0, rotateX: 8 },
+		show: {
+			y: 0,
+			opacity: 1,
+			rotateX: 0,
+			transition: { duration, ease: luxEase }
+		}
+	}
+
 	return (
 		<MotionTag
+			ref={wrapperRef}
 			className={className}
-			variants={{
-				hidden: {},
-				show: {
-					transition: {
-						delayChildren: delay,
-						staggerChildren: stagger
-					}
-				}
-			}}
+			variants={container}
 			initial="hidden"
-			whileInView="show"
-			viewport={{ once, amount: 0.35 }}
+			animate={controls}
 		>
 			<span className="sr-only">{text}</span>
 			<span aria-hidden>
 				{words.flatMap((word, i) => [
 					<motion.span
 						key={`w-${i}`}
-						variants={wordVariant(yOffset, duration)}
+						variants={wordVariant}
 						className={`inline-block${wordClassName ? ` ${wordClassName}` : ""}`}
 						style={{ willChange: "transform" }}
 					>
