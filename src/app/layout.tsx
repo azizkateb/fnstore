@@ -1,20 +1,21 @@
 import type { Metadata } from "next"
 import Script from "next/script"
-import { Amiri, IBM_Plex_Sans_Arabic } from "next/font/google"
+import localFont from "next/font/local"
+import { IBM_Plex_Sans_Arabic } from "next/font/google"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
-const display = Amiri({
-	subsets: ["arabic"],
-	weight: ["400", "700"],
-	style: ["normal", "italic"],
-	variable: "--font-display"
+const display = localFont({
+	src: "../../lang/aligarh-arabic-free-personal-use.medium.otf",
+	variable: "--font-display",
+	display: "swap"
 })
 
 const ui = IBM_Plex_Sans_Arabic({
 	subsets: ["arabic"],
 	weight: ["400", "500", "700"],
-	variable: "--font-ui"
+	variable: "--font-ui",
+	display: "swap"
 })
 
 export const metadata: Metadata = {

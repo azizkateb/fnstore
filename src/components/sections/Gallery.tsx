@@ -29,11 +29,7 @@ export default function Gallery() {
 		<section id="gallery" className="w-full px-20 pb-32">
 			<SectionTitle
 				eyebrow="المعرض"
-				title={
-					<span>
-						شاهديه <em className="italic text-gold">من كل زاوية</em>
-					</span>
-				}
+				animatedText="شاهديه من كل زاوية"
 			/>
 			<motion.div
 				variants={staggerGrid}

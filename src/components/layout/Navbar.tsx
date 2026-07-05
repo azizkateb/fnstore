@@ -33,10 +33,10 @@ export default function Navbar() {
 				variants={enter}
 				initial="hidden"
 				animate="show"
-				className="flex h-24 w-[min(1440px,calc(100%-40px))] items-center justify-between rounded-full bg-white/80 ps-12 pe-5 shadow-nav backdrop-blur-lg"
+				className="flex h-16 w-[min(1440px,calc(100%-32px))] items-center justify-between rounded-full bg-white/80 px-5 shadow-nav backdrop-blur-lg md:h-24 md:w-[min(1440px,calc(100%-40px))] md:ps-12 md:pe-5"
 			>
-				<a href="#top" className="group font-display text-4xl font-bold tracking-wide">
-					بوتيك <b className="text-gold transition-colors duration-300 group-hover:text-ink">FN</b>
+				<a href="#top" className="group font-display text-xl font-bold tracking-wide md:text-4xl">
+					بوتيك <b className="font-symbol text-gold transition-colors duration-300 group-hover:text-ink">FN</b>
 				</a>
 				<nav className="hidden items-center gap-12 text-lg font-medium md:flex">
 					{links.map((l) => (
@@ -49,7 +49,10 @@ export default function Navbar() {
 						</a>
 					))}
 				</nav>
-				<Button href={SITE.sallaProductUrl} size="md" className="text-sm md:text-base">
+				<Button href={SITE.sallaProductUrl} size="sm" className="text-xs md:hidden">
+					اطلبيه الآن
+				</Button>
+				<Button href={SITE.sallaProductUrl} size="md" className="hidden text-sm md:inline-flex md:text-base">
 					اطلبيه الآن
 				</Button>
 			</motion.header>

@@ -16,7 +16,8 @@ const config: Config = {
 			},
 			fontFamily: {
 				display: ["var(--font-display)", "serif"],
-				ui: ["var(--font-ui)", "sans-serif"]
+				ui: ["var(--font-ui)", "system-ui", "sans-serif"],
+				symbol: ["Arial", "Tahoma", "sans-serif"]
 			},
 			letterSpacing: {
 				caps: "0.18em"

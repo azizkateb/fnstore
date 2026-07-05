@@ -6,7 +6,11 @@ export const SITE = {
 	priceNow: 289,
 	priceOld: 340,
 	currency: "ر.س",
+	discountText: "خصم",
+	discountValue: "15%",
 	discountLabel: "خصم 15%",
+	saveText: "وفّري",
+	saveNumber: "51",
 	saveLabel: "وفّري 51 ر.س",
 	// TODO: replace with the real Salla product URL
 	sallaProductUrl:

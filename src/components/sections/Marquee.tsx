@@ -1,11 +1,11 @@
 // Full-bleed dark promo marquee — infinite loop, pauses on hover
 import { SITE } from "@/lib/site"
 
-const items = [
-	"خصم 15% لفترة محدودة",
-	SITE.saveLabel,
+const items: React.ReactNode[] = [
+	<>خصم <span className="symbol-safe" dir="ltr">15%</span> لفترة محدودة</>,
+	<>{SITE.saveText} <span className="font-symbol" dir="ltr">{SITE.saveNumber}</span> {SITE.currency}</>,
 	"توصيل سريع لجميع المدن",
-	"دفع آمن عبر سلة"
+	<>دفع آمن <span className="symbol-safe" dir="ltr">100%</span> عبر سلة</>
 ]
 
 export default function Marquee() {

@@ -5,12 +5,30 @@
 @layer base {
 	body {
 		@apply bg-white text-ink font-ui antialiased;
+		font-family: var(--font-ui), system-ui, sans-serif;
 		line-height: 1.7;
 	}
 
 	::selection {
 		background: #f5f5f5;
 		color: #1c1b19;
+	}
+}
+
+@layer utilities {
+	.font-symbol {
+		font-family: Arial, Tahoma, sans-serif !important;
+	}
+	.symbol-safe {
+		font-family: Arial, Tahoma, sans-serif !important;
+		direction: ltr;
+		unicode-bidi: isolate;
+	}
+	.num-ltr {
+		direction: ltr;
+		unicode-bidi: isolate;
+		font-family: "IBM Plex Sans Arabic", "Noto Sans Arabic", Arial, Tahoma, sans-serif;
+		font-variant-numeric: tabular-nums;
 	}
 }
 

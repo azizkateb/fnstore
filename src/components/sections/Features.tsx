@@ -33,11 +33,7 @@ export default function Features() {
 		<section id="features" className="mx-auto max-w-shell px-6 py-28">
 			<SectionTitle
 				eyebrow="لماذا هذا الفستان"
-				title={
-					<span>
-						تفاصيل صُنعت <em className="italic text-gold">لتُلفت الأنظار</em>
-					</span>
-				}
+				animatedText="تفاصيل صُنعت لتُلفت الأنظار"
 			/>
 			<motion.div
 				variants={staggerGrid}
@@ -52,7 +48,7 @@ export default function Features() {
 						variants={fadeUp}
 						className="border-t border-line pt-7"
 					>
-						<span className="font-display text-sm tracking-caps text-gold">
+						<span className="font-symbol text-sm tracking-caps text-gold">
 							{f.num}
 						</span>
 						<h3 className="font-display mb-3 mt-4 text-[28px] font-bold">{f.title}</h3>

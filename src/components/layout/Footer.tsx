@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { SITE } from "@/lib/site"
+import AnimatedSplitText from "@/components/ui/AnimatedSplitText"
 
 const fadeUp = {
 	hidden: { opacity: 0, y: 24 },
@@ -13,98 +14,88 @@ const fadeUp = {
 }
 
 const rise = {
-	hidden: { y: "100%" },
+	hidden: { opacity: 0, y: 40 },
 	show: {
+		opacity: 1,
 		y: 0,
-		transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+		transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
 	}
 }
 
 const viewportOnce = { once: true, amount: 0.3 }
 
-const footerLinks = [
+const links = [
 	{ href: "#features", label: "المميزات" },
 	{ href: "#gallery", label: "المعرض" },
 	{ href: "#offer", label: "العرض" },
 	{ href: "#faq", label: "الأسئلة" }
 ]
 
-const trustItems = [
-	{ icon: "🔒", text: "دفع آمن 100%" },
-	{ icon: "🚚", text: "توصيل سريع" },
-	{ icon: "💬", text: "دعم ومتابعة" }
-]
-
 export default function Footer() {
 	return (
-		<footer className="relative overflow-hidden bg-ink pt-20 text-white md:pt-24">
+		<footer className="overflow-hidden bg-ink pt-14 text-white md:pt-18">
 			<div className="mx-auto max-w-shell px-6">
 				<motion.div
 					viewport={viewportOnce}
 					variants={fadeUp}
 					initial="hidden"
 					whileInView="show"
-					className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-start"
+					className="grid gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.15fr_0.85fr] md:items-end md:gap-12 md:pb-12"
 				>
 					<div className="text-right">
-						<p className="eyebrow !text-gold/80">{SITE.brandLatin}</p>
-						<h2 className="font-display mt-5 text-[clamp(28px,4.2vw,56px)] font-bold leading-[1.08] text-ivory">
-							إطلالتك المميزة تبدأ من هنا
-						</h2>
-						<p className="mt-5 text-base leading-7 text-white/65 md:text-lg">
-							{SITE.productName} — خصم 15% لفترة محدودة مع تجربة شراء راقية، صفحة سريعة،
+						<p className="eyebrow !text-blush/80">{SITE.brandLatin}</p>
+						<AnimatedSplitText
+							as="h2"
+							text="إطلالتك المميزة تبدأ من هنا"
+							delay={0.15}
+							stagger={0.09}
+							className="font-display mt-4 text-[clamp(36px,4.8vw,72px)] font-bold leading-[1.04] text-ivory"
+						/>
+						<p className="mt-5 max-w-[46rem] text-base leading-8 text-white/62 md:text-lg">
+							{SITE.productName} — خصم <span className="symbol-safe" dir="ltr">15%</span> لفترة محدودة مع تجربة شراء راقية، صفحة سريعة،
 							وفيديو استعراضي يوضّح التفاصيل قبل الطلب.
 						</p>
 					</div>
 
-					<div className="flex flex-col items-start gap-8 md:items-end">
+					<div className="flex flex-col items-start gap-5 md:items-end md:gap-6">
 						<a
 							href={SITE.sallaProductUrl}
-							className="inline-flex h-14 items-center justify-center rounded-full bg-gradient-to-b from-gold to-[#B8945F] px-10 text-[13px] font-medium tracking-caps text-ink shadow-[0_4px_16px_rgba(168,137,78,0.25)] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+							className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white px-8 text-[13px] font-medium tracking-caps text-ink transition-all duration-200 hover:bg-blush sm:w-auto"
 						>
 							اطلبيه الآن
 						</a>
-						<div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-white/50">
-						{trustItems.map((item) => (
-								<span key={item.text} className="flex items-center gap-2">
-									{item.icon} {item.text}
-								</span>
-							))}
+						<div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/55 md:justify-end">
+							<span>🔒 دفع آمن <span className="symbol-safe" dir="ltr">100%</span></span>
+							<span>🚚 توصيل سريع</span>
+							<span>💬 دعم ومتابعة</span>
 						</div>
 					</div>
 				</motion.div>
 			</div>
 
-			<div className="overflow-hidden py-8 md:py-12">
+			<div className="relative overflow-hidden border-y border-white/10 py-8 md:py-10">
 				<motion.h2
 					variants={rise}
 					initial="hidden"
 					whileInView="show"
 					viewport={viewportOnce}
-					className="font-display select-none text-center text-[16vw] font-bold leading-none tracking-tighter text-white/[0.04] md:text-[14vw]"
+					className="font-display select-none text-center text-[10vw] font-bold leading-[0.9] tracking-tight text-white/[0.10] md:text-[9vw]"
 				>
 					{SITE.brandLatin}
 				</motion.h2>
 			</div>
 
-			<div className="mx-auto max-w-shell flex flex-col gap-5 border-t border-white/5 px-6 py-6 text-sm text-white/40 md:flex-row md:items-center md:justify-between">
-				<nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
-					{footerLinks.map((link) => (
-						<a
-							key={link.href}
-							href={link.href}
-							className="text-white/55 transition-all duration-200 hover:text-gold hover:text-white"
-						>
+			<div className="mx-auto flex max-w-shell flex-col gap-4 border-t border-white/10 px-6 py-5 text-sm text-white/50 md:flex-row md:items-center md:justify-between">
+				<nav className="flex flex-wrap items-center gap-x-7 gap-y-2">
+					{links.map((link) => (
+						<a key={link.href} href={link.href} className="transition-colors duration-200 hover:text-gold">
 							{link.label}
 						</a>
 					))}
 				</nav>
 				<div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs md:text-sm">
-					<span className="text-white/40">© 2026 {SITE.brand}</span>
-					<a
-						href={SITE.storeUrl}
-						className="text-white/55 transition-all duration-200 hover:text-gold hover:text-white"
-					>
+					<span>© 2026 {SITE.brand}</span>
+					<a href={SITE.storeUrl} className="transition-colors duration-200 hover:text-gold">
 						زوري المتجر الكامل
 					</a>
 				</div>

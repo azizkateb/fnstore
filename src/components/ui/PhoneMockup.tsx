@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 export default function PhoneMockup({ children }: { children: React.ReactNode }) {
 	return (
 		<motion.div
-			className="relative mx-auto w-[380px] sm:w-[480px]"
+			className="relative mx-auto w-[min(88vw,320px)] sm:w-[480px]"
 			whileHover={{ y: -8, scale: 1.008 }}
 			transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
 		>
